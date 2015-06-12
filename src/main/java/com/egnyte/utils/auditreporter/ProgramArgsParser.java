@@ -94,9 +94,11 @@ public class ProgramArgsParser {
     private int nextArgInt() {
         try {
             return Integer.parseInt(args[++iArg]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            usage();
         } catch (NumberFormatException e) {
             usage();
-            return 0;
         }
+        return 0;
     }
 }
