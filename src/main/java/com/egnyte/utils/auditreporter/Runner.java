@@ -1,6 +1,5 @@
 package com.egnyte.utils.auditreporter;
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,9 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Runner {
-
-    private List<List<String>> users;
-    private List<List<String>> files;
+    private final List<List<String>> users = new ArrayList<>();
+    private final List<List<String>> files = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         Runner r = new Runner();
@@ -39,37 +37,18 @@ public class Runner {
     }
 
     private void loadData(String userFn, String filesFn) throws IOException {
-        String line;
+        loadCsvFile(userFn, users);
+        loadCsvFile(filesFn, files);
+    }
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(userFn));
-            users = new ArrayList<List<String>>();
-
+    private void loadCsvFile(String file, List<List<String>> output)
+            throws IOException
+    {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             reader.readLine(); // skip header
-
+            String line;
             while ((line = reader.readLine()) != null) {
-                users.add(Arrays.asList(line.split(",")));
-            }
-        } finally {
-            if (reader != null) {
-                reader.close();
-            }
-        }
-
-        reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(filesFn));
-            files = new ArrayList<List<String>>();
-
-            reader.readLine(); // skip header
-
-            while ((line = reader.readLine()) != null) {
-                files.add(Arrays.asList(line.split(",")));
-            }
-        } finally {
-            if (reader != null) {
-                reader.close();
+                output.add(Arrays.asList(line.split(",")));
             }
         }
     }
