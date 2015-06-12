@@ -57,7 +57,7 @@ public class ProgramArgsParser {
     public ProgramArgs parse() {
         List<String> files = new ArrayList<>();
         while (iArg < args.length) {
-            Runnable r = options.get(args[iArg++]);
+            Runnable r = options.get(args[iArg]);
             if (r == null) {
                 if (files.size() == 2) {
                     usage();
@@ -66,6 +66,7 @@ public class ProgramArgsParser {
             } else {
                 r.run();
             }
+            ++iArg;
         }
         if (view == null) {
             view = new PlainView(getOut());
@@ -92,7 +93,7 @@ public class ProgramArgsParser {
 
     private int nextArgInt() {
         try {
-            return Integer.parseInt(args[iArg++]);
+            return Integer.parseInt(args[++iArg]);
         } catch (NumberFormatException e) {
             usage();
             return 0;
