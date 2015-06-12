@@ -1,10 +1,7 @@
 package com.egnyte.utils.auditreporter;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Runner {
@@ -37,20 +34,9 @@ public class Runner {
     }
 
     private void loadData(String userFn, String filesFn) throws IOException {
-        loadCsvFile(userFn, users);
-        loadCsvFile(filesFn, files);
-    }
-
-    private void loadCsvFile(String file, List<List<String>> output)
-            throws IOException
-    {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            reader.readLine(); // skip header
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.add(Arrays.asList(line.split(",")));
-            }
-        }
+        CsvLoader loader = new CsvLoader();
+        loader.loadTuples(userFn, users);
+        loader.loadTuples(filesFn, files);
     }
 
     private void printHeader() {
