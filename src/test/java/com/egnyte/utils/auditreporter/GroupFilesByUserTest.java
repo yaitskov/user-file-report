@@ -27,7 +27,7 @@ public class GroupFilesByUserTest {
 
     @Test
     public void groupOneUserManyFiles() {
-        ReflectionAssert.assertReflectionEquals(
+        ReflectionAssert.assertLenientEquals(
                 Arrays.asList(FILE1, FILE2),
                 new GroupFilesByUser().group(Arrays.asList(USER1),
                         Arrays.asList(FILE1, FILE2)).get(USER1));
