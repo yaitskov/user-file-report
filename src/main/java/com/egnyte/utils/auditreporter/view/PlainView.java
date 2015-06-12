@@ -11,7 +11,7 @@ import java.io.OutputStreamWriter;
 /**
  * Daneel Yaitskov
  */
-public class PlainView implements Procedure<Multimap<User, FileInfo>> {
+public class PlainView implements View {
     private final OutputStreamWriter out;
 
     public PlainView(OutputStreamWriter out) {

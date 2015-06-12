@@ -1,42 +1,18 @@
 package com.egnyte.utils.auditreporter;
 
-import com.egnyte.utils.auditreporter.view.PlainView;
-
-import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
+import com.egnyte.utils.auditreporter.view.View;
 
 /**
  * Daneel Yaitskov
  */
 public class ProgramArgs {
-    private static final Charset CS = Charset.forName("UTF-8");
-
     public final String usersFile;
     public final String filesFile;
-    public final PlainView view;
+    public final View view;
 
-    public ProgramArgs(String usersFile, String filesFile, PlainView view) {
+    public ProgramArgs(String usersFile, String filesFile, View view) {
         this.usersFile = usersFile;
         this.filesFile = filesFile;
         this.view = view;
-    }
-
-    public static ProgramArgs parseCmdline(String[] args) {
-        if (args.length < 2) {
-            usage();
-        }
-        PlainView view = new PlainView(new OutputStreamWriter(System.out, CS));
-        int firstFile = 0;
-        if (firstFile + 2 != args.length) {
-            usage();
-        }
-        final String usersFile = args[firstFile];
-        final String filesFile = args[firstFile + 1];
-        return new ProgramArgs(usersFile, filesFile, view);
-    }
-
-    private static void usage() {
-        System.err.println("Usage: uber.jar users.csv files.csv");
-        System.exit(1);
     }
 }
