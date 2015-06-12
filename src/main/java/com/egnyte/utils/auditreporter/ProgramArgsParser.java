@@ -72,6 +72,9 @@ public class ProgramArgsParser {
         if (report == null) {
             report = new GroupReport();
         }
+        if (files.size() != 2) {
+            usage();
+        }
         final String usersFile = files.get(0);
         final String filesFile = files.get(1);
         return new ProgramArgs(usersFile, filesFile, new ViewRenderer(view), report);
