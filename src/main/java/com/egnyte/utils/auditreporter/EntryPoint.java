@@ -16,5 +16,6 @@ public class EntryPoint {
                                 .apply(programArguments.usersFile),
                         new ObjectsFromCsv<>(loader, new FileInfoTupleToPojo())
                                 .apply(programArguments.filesFile)));
+        programArguments.out.close();
     }
 }

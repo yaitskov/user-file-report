@@ -15,7 +15,6 @@ import org.apache.commons.csv.CSVPrinter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,19 +29,20 @@ public class ProgramArgsParser {
     private int iArg;
     private Report report;
     private View view;
+    private OutputStreamWriter out = new OutputStreamWriter(System.out, CS);
     private final Map<String, Runnable> options = new ImmutableMap
             .Builder<String, Runnable>()
             .put("--top", new Runnable() {
                 public void run() {
                     if (view == null) {
-                        view = new TopPlainView(getOut());
+                        view = new TopPlainView(out);
                     }
                     report = new TopReport(nextArgInt());
                 }
             }).put("-c", new Runnable() {
                 public void run() {
                     try {
-                        view = new CsvView(new CSVPrinter(getOut(), CSVFormat.DEFAULT));
+                        view = new CsvView(new CSVPrinter(out, CSVFormat.DEFAULT));
                     } catch (IOException e) {
                         throw new RuntimeIoException(e);
                     }
@@ -69,7 +69,7 @@ public class ProgramArgsParser {
             ++iArg;
         }
         if (view == null) {
-            view = new PlainView(getOut());
+            view = new PlainView(out);
         }
         if (report == null) {
             report = new GroupReport();
@@ -79,11 +79,7 @@ public class ProgramArgsParser {
         }
         final String usersFile = files.get(0);
         final String filesFile = files.get(1);
-        return new ProgramArgs(usersFile, filesFile, new ViewRenderer(view), report);
-    }
-
-    private OutputStreamWriter getOut() {
-        return new OutputStreamWriter(System.out, CS);
+        return new ProgramArgs(usersFile, filesFile, new ViewRenderer(view), report, out);
     }
 
     private static void usage() {
