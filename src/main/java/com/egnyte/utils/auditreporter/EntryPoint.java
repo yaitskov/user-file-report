@@ -9,7 +9,7 @@ public class EntryPoint {
     public static void main(String[] args) throws IOException {
         ProgramArgs programArguments = ProgramArgs.parseCmdline(args);
         final CsvLoader loader = new CsvLoader();
-        programArguments.view.render(new GroupFilesByUser().group(
+        programArguments.view.call(new GroupFilesByUser().group(
                 new ObjectsFromCsv<>(loader, new UserTupleToPojo())
                         .apply(programArguments.usersFile),
                 new ObjectsFromCsv<>(loader, new FileInfoTupleToPojo())

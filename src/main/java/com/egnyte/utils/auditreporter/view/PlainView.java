@@ -1,5 +1,6 @@
 package com.egnyte.utils.auditreporter.view;
 
+import com.egnyte.utils.auditreporter.Procedure;
 import com.egnyte.utils.auditreporter.domain.FileInfo;
 import com.egnyte.utils.auditreporter.domain.User;
 import com.google.common.collect.Multimap;
@@ -10,14 +11,14 @@ import java.io.OutputStreamWriter;
 /**
  * Daneel Yaitskov
  */
-public class PlainView {
+public class PlainView implements Procedure<Multimap<User, FileInfo>> {
     private final OutputStreamWriter out;
 
     public PlainView(OutputStreamWriter out) {
         this.out = out;
     }
 
-    public void render(Multimap<User, FileInfo> data) throws IOException {
+    public void call(Multimap<User, FileInfo> data) throws IOException {
         printHeader();
         for (User user : data.keySet()) {
             printUserHeader(user.login);

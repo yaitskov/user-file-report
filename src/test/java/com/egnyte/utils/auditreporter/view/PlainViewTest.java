@@ -21,7 +21,7 @@ public class PlainViewTest {
         OutputStreamWriter out = new OutputStreamWriter(byteOut);
         Multimap<User, FileInfo> data = ArrayListMultimap.create();
         data.put(new User(1, "name"), new FileInfo(1, "file", 123L));
-        new PlainView(out).render(data);
+        new PlainView(out).call(data);
         out.close();
         ReflectionAssert.assertReflectionEquals(
                 "Audit Report\n"
