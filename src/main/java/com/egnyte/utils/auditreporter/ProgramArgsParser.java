@@ -15,6 +15,7 @@ import org.apache.commons.csv.CSVPrinter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +91,11 @@ public class ProgramArgsParser {
     }
 
     private int nextArgInt() {
-        return Integer.parseInt(args[iArg++]);
+        try {
+            return Integer.parseInt(args[iArg++]);
+        } catch (NumberFormatException e) {
+            usage();
+            return 0;
+        }
     }
 }
