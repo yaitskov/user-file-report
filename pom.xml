@@ -10,7 +10,7 @@
     <version>1.0</version>
 
     <properties>
-        <entry.point>com.egnyte.utils.auditreporter.Runner</entry.point>
+        <entry.point>com.egnyte.utils.auditreporter.EntryPoint</entry.point>
     </properties>
 
     <build>

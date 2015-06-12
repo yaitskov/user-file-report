@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 
-public class Runner {
+public class EntryPoint {
     private static final Charset CS = Charset.forName("UTF-8");
 
     public static void main(String[] args) throws IOException {
