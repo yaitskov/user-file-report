@@ -23,17 +23,20 @@ public class ProgramArgs {
 
     public static ProgramArgs parseCmdline(String[] args) {
         if (args.length < 2) {
-            System.err.println("Usage: uber.jar users.csv files.csv");
-            System.exit(1);
+            usage();
         }
         PlainView view = new PlainView(new OutputStreamWriter(System.out, CS));
         int firstFile = 0;
         if (firstFile + 2 != args.length) {
-            System.err.println("Usage: uber.jar users.csv files.csv");
-            System.exit(1);
+            usage();
         }
         final String usersFile = args[firstFile];
         final String filesFile = args[firstFile + 1];
         return new ProgramArgs(usersFile, filesFile, view);
+    }
+
+    private static void usage() {
+        System.err.println("Usage: uber.jar users.csv files.csv");
+        System.exit(1);
     }
 }
