@@ -7,12 +7,14 @@ import java.io.IOException;
 
 public class EntryPoint {
     public static void main(String[] args) throws IOException {
-        ProgramArgs programArguments = new ProgramArgsParser().parse(args);
+        ProgramArgs programArguments = new ProgramArgsParser(args).parse();
         final CsvLoader loader = new CsvLoader();
-        programArguments.view.call(new GroupFilesByUser().group(
-                new ObjectsFromCsv<>(loader, new UserTupleToPojo())
-                        .apply(programArguments.usersFile),
-                new ObjectsFromCsv<>(loader, new FileInfoTupleToPojo())
-                        .apply(programArguments.filesFile)));
+        programArguments.viewRenderer.render(
+                programArguments.report.getName(),
+                programArguments.report.build(
+                        new ObjectsFromCsv<>(loader, new UserTupleToPojo())
+                                .apply(programArguments.usersFile),
+                        new ObjectsFromCsv<>(loader, new FileInfoTupleToPojo())
+                                .apply(programArguments.filesFile)));
     }
 }

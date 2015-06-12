@@ -9,22 +9,24 @@ import java.io.OutputStreamWriter;
 /**
  * Daneel Yaitskov
  */
-public class PlainView implements View {
+public class TopPlainView extends PlainView {
     private final OutputStreamWriter out;
 
-    public PlainView(OutputStreamWriter out) {
+    public TopPlainView(OutputStreamWriter out) {
+        super(out);
         this.out = out;
     }
 
     public void header(String title) throws IOException {
         out.write(title + "\n");
-        out.write("============\n");
+        out.write("=============\n");
     }
 
     public void section(UserFiles userFiles) throws IOException {
-        out.write("## User: " + userFiles.user.login + "\n");
         for (FileInfo fileInfo : userFiles.getFiles()) {
-            out.write("* " + fileInfo.name + " ==> " + fileInfo.size + " bytes\n");
+            out.write("* " + fileInfo.name + " ==> user "
+                            + userFiles.user.login + ", "
+                            + fileInfo.size + " bytes\n");
         }
     }
 }

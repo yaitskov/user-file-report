@@ -1,12 +1,13 @@
 package com.egnyte.utils.auditreporter.view;
 
-import com.egnyte.utils.auditreporter.Procedure;
-import com.egnyte.utils.auditreporter.domain.FileInfo;
-import com.egnyte.utils.auditreporter.domain.User;
-import com.google.common.collect.Multimap;
+import com.egnyte.utils.auditreporter.domain.UserFiles;
+
+import java.io.IOException;
 
 /**
  * Daneel Yaitskov
  */
-public interface View extends Procedure<Multimap<User, FileInfo>> {
+public interface View {
+    void header(String title) throws IOException;
+    void section(UserFiles userFiles) throws IOException;
 }
